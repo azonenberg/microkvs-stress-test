@@ -932,7 +932,7 @@
 			)
 		)
 		(property "Value" "1K"
-			(at 0 3.5 270)
+			(at 0 3.5 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "edc7674c-631f-4e8b-bdd2-53b7e44cf5a8")
@@ -1704,7 +1704,7 @@
 			)
 		)
 		(property "Value" "0.47 uF"
-			(at 0.05 3.1 270)
+			(at 0.05 3.1 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "c2a89bad-18dd-4ac1-9817-91cb16310725")
@@ -1802,7 +1802,7 @@
 			)
 		)
 		(property "Value" "CONN_01X08"
-			(at 2.54 -3.048 270)
+			(at 2.54 -3.048 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "051147c3-8620-4a07-8081-1107a4f7663f")
@@ -2119,7 +2119,7 @@
 			)
 		)
 		(property "Value" "4.7 uF"
-			(at 0 3 270)
+			(at 0 3 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "d936a0bc-3245-43d5-96c3-7040042f69b8")
@@ -2216,7 +2216,7 @@
 			)
 		)
 		(property "Value" "STM32L431-QFN32"
-			(at 0 6.45 270)
+			(at 0 6.45 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b42a4d46-38c3-497c-a483-1de81e645983")
@@ -4417,7 +4417,7 @@
 			)
 		)
 		(property "Value" "1K"
-			(at 0 3.5 270)
+			(at 0 3.5 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "cf690a1f-a6c2-4969-a7ca-0b4301b464c4")
@@ -4611,7 +4611,7 @@
 			)
 		)
 		(property "Value" "0.47 uF"
-			(at 0.05 3.1 270)
+			(at 0.05 3.1 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "ca966999-b3ae-4e10-bae4-433f355a2b22")
@@ -5350,7 +5350,7 @@
 			)
 		)
 		(property "Value" "XILINX_JTAG"
-			(at 0 3.4 360)
+			(at 0 3.4 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "701d64b9-fb59-46e7-a065-e0a5396fee0c")
@@ -5635,7 +5635,7 @@
 			)
 		)
 		(property "Value" "BARREL_JACK"
-			(at -5.5 5.5 270)
+			(at -5.5 5.5 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "af0b3255-4c13-4c7c-bd16-4e5051540e9c")
@@ -5916,7 +5916,7 @@
 			)
 		)
 		(property "Value" "0.47 uF"
-			(at 0.05 3.1 270)
+			(at 0.05 3.1 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a7ab6634-5c01-47e1-b979-a4020ff55546")
@@ -6013,7 +6013,7 @@
 			)
 		)
 		(property "Value" "0.47 uF"
-			(at 0.05 3.1 270)
+			(at 0.05 3.1 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "0a9df65e-284a-43df-943f-7805211902cf")
@@ -8533,7 +8533,7 @@
 			)
 		)
 		(property "Value" "33"
-			(at 0 3.5 270)
+			(at 0 3.5 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a07a949c-4b80-4c65-972f-577d3402cbf5")
@@ -9195,7 +9195,7 @@
 			)
 		)
 		(property "Value" "DNP"
-			(at 0 3.5 270)
+			(at 0 3.5 -90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7222f80b-bf6c-431e-898a-20d5cf994170")
@@ -12546,6 +12546,18 @@
 			(justify right)
 		)
 	)
+	(gr_text "LED1"
+		(at 46.5 51 0)
+		(layer "F.SilkS")
+		(uuid "5eea7dbf-f52f-49e4-a961-31657bce6287")
+		(effects
+			(font
+				(size 0.75 0.75)
+				(thickness 0.1)
+			)
+			(justify right)
+		)
+	)
 	(gr_text "LED0"
 		(at 110.5 50.75 0)
 		(layer "F.SilkS")
@@ -12556,6 +12568,18 @@
 				(thickness 0.1)
 			)
 			(justify left)
+		)
+	)
+	(gr_text "LED0"
+		(at 46.5 49.75 0)
+		(layer "F.SilkS")
+		(uuid "7174c388-ae95-4320-a96e-8d32b2d200a6")
+		(effects
+			(font
+				(size 0.75 0.75)
+				(thickness 0.1)
+			)
+			(justify right)
 		)
 	)
 	(gr_text "MicroKVS Stress Test v0.1\nA. Zonenberg / 2024-05-27"
@@ -12603,6 +12627,18 @@
 				(thickness 0.1)
 			)
 			(justify left)
+		)
+	)
+	(gr_text "LED2"
+		(at 46.5 52.25 0)
+		(layer "F.SilkS")
+		(uuid "a686d5cd-ea3e-4d4b-9486-3792e11df4e2")
+		(effects
+			(font
+				(size 0.75 0.75)
+				(thickness 0.1)
+			)
+			(justify right)
 		)
 	)
 	(gr_text "~{CS}"
