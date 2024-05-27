@@ -1,2 +1,4 @@
+output
 *.lck
 *backups
+*cache*

@@ -5,6 +5,118 @@
 	(uuid "19c96cab-7628-46dd-b073-114974f52a48")
 	(paper "A3")
 	(lib_symbols
+		(symbol "conn:CONN_01X01"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "CONN_01X01"
+				(at 2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Connector, single row, 01x01, pin header"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin_Header_Straight_1X* Pin_Header_Angled_1X* Socket_Strip_Straight_1X* Socket_Strip_Angled_1X*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CONN_01X01_0_1"
+				(rectangle
+					(start -1.27 0.127)
+					(end 0.254 -0.127)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "CONN_01X01_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "P1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "conn:CONN_01X03"
 			(pin_names
 				(offset 1.016) hide)
@@ -1467,6 +1579,70 @@
 								(size 1.27 1.27)
 							)
 						)
+					)
+				)
+			)
+		)
+		(symbol "special-azonenberg:MECHANICAL"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "M"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MECHANICAL"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MECHANICAL_0_1"
+				(rectangle
+					(start 0 1.27)
+					(end 2.54 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
 					)
 				)
 			)
@@ -3116,6 +3292,10 @@
 		(uuid "003b39f4-b713-4549-8688-14d4952a9273")
 	)
 	(no_connect
+		(at 260.35 209.55)
+		(uuid "166e7d2e-4983-4ac7-9a51-6c9b9b4402f1")
+	)
+	(no_connect
 		(at 115.57 161.29)
 		(uuid "2db1e36d-bbee-4f0a-bb52-903a9119aa1a")
 	)
@@ -3124,12 +3304,16 @@
 		(uuid "3fad108a-adda-4c1f-9f44-538e6a99b6f3")
 	)
 	(no_connect
+		(at 260.35 228.6)
+		(uuid "57495b45-2d35-492d-9949-bdfce68ff5ed")
+	)
+	(no_connect
 		(at 335.28 110.49)
 		(uuid "62d08938-a2c6-4aeb-a405-dd6aa9e9116f")
 	)
 	(no_connect
-		(at 69.85 102.87)
-		(uuid "64e91055-2a88-49a8-b990-ca730455e1d3")
+		(at 260.35 222.25)
+		(uuid "6cb8197b-fe3c-416e-a1cf-98df417d94e2")
 	)
 	(no_connect
 		(at 160.02 58.42)
@@ -3140,20 +3324,12 @@
 		(uuid "8477b91f-5d58-4193-a5e2-3466f6db7da0")
 	)
 	(no_connect
-		(at 160.02 118.11)
-		(uuid "9f775b62-9ac5-4177-92b3-ca4179f415c7")
-	)
-	(no_connect
 		(at 115.57 173.99)
 		(uuid "b48f08bc-7d5d-4326-9c69-93f46de04b64")
 	)
 	(no_connect
-		(at 257.81 58.42)
-		(uuid "bd01064b-6ed6-4901-92fe-643d5fee72ae")
-	)
-	(no_connect
-		(at 257.81 60.96)
-		(uuid "d6879b4b-fb75-4727-ade9-4e947e8b98cc")
+		(at 260.35 215.9)
+		(uuid "b6e14634-57fe-42ac-9d08-8cfe88bc3b14")
 	)
 	(no_connect
 		(at 160.02 120.65)
@@ -4155,7 +4331,7 @@
 		(uuid "2368a95d-9078-4a7e-aa39-cd376ccb10b8")
 	)
 	(label "CROSS_SPI_SCK"
-		(at 106.68 264.16 180)
+		(at 106.68 261.62 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4265,7 +4441,7 @@
 		(uuid "36c095a7-7279-4491-9c0d-8cdb61810e36")
 	)
 	(label "CROSS_SPI_MOSI"
-		(at 106.68 269.24 180)
+		(at 106.68 266.7 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4297,6 +4473,28 @@
 		)
 		(uuid "3f4cc16c-01d5-44fd-a376-b16c5f0cf052")
 	)
+	(label "DUT_GPIO1"
+		(at 257.81 53.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "40129910-f612-4a62-be82-30c82aef52f3")
+	)
+	(label "DUT_GPIO0"
+		(at 257.81 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "406513e0-3b06-4235-963b-2c9aebbe6cda")
+	)
 	(label "CROSS_SPI_MOSI"
 		(at 69.85 53.34 180)
 		(fields_autoplaced yes)
@@ -4320,7 +4518,7 @@
 		(uuid "45e94f4e-00f3-4079-b73d-40982f1485e1")
 	)
 	(label "CROSS_SPI_MISO"
-		(at 106.68 266.7 180)
+		(at 106.68 269.24 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4342,7 +4540,7 @@
 		(uuid "47141785-3801-41d1-8301-67c79a2f26bd")
 	)
 	(label "DUT_PWREN"
-		(at 106.68 259.08 180)
+		(at 106.68 256.54 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4353,7 +4551,7 @@
 		(uuid "4bc8645b-9473-4340-93b4-3b9329489bfe")
 	)
 	(label "GND"
-		(at 106.68 271.78 180)
+		(at 106.68 274.32 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4364,7 +4562,7 @@
 		(uuid "4ed70f6c-c0c6-4b0c-8fb0-d0e2718e1d75")
 	)
 	(label "CROSS_SPI_CS_N"
-		(at 106.68 261.62 180)
+		(at 106.68 264.16 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4408,7 +4606,7 @@
 		(uuid "548c89fb-296a-4c07-926a-37594bb1a18e")
 	)
 	(label "CROSS_FAILDET"
-		(at 69.85 22.86 180)
+		(at 69.85 43.18 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4495,6 +4693,17 @@
 		)
 		(uuid "6963b6b1-41f8-4a5a-9ed1-911268b59245")
 	)
+	(label "DUT_GPIO0"
+		(at 69.85 102.87 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "69cf6a13-aa30-4467-93e7-9ec5ae821989")
+	)
 	(label "CTRL_BOOT0"
 		(at 114.3 30.48 180)
 		(fields_autoplaced yes)
@@ -4518,7 +4727,7 @@
 		(uuid "6c0ebc61-bd21-4350-b2f2-d87a7ceb8aa4")
 	)
 	(label "CROSS_FAILDET"
-		(at 106.68 254 180)
+		(at 106.68 271.78 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4551,7 +4760,7 @@
 		(uuid "6f72fe3e-9e66-4c51-a98a-0a967ae462ec")
 	)
 	(label "CTRL_QSPI_DQ2"
-		(at 257.81 53.34 180)
+		(at 257.81 50.8 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4705,7 +4914,7 @@
 		(uuid "828f979f-bb40-4c09-9a2a-8427d397fed8")
 	)
 	(label "DUT_PWREN"
-		(at 69.85 43.18 180)
+		(at 69.85 22.86 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -4760,7 +4969,7 @@
 		(uuid "8863255a-f6ad-4a0b-bac2-4f435a19e8d8")
 	)
 	(label "CTRL_QSPI_SCK"
-		(at 257.81 43.18 180)
+		(at 257.81 55.88 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5079,7 +5288,7 @@
 		(uuid "c76f492c-b2f8-4ea6-869c-8688e33543b5")
 	)
 	(label "CTRL_QSPI_DQ1"
-		(at 257.81 50.8 180)
+		(at 257.81 58.42 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5110,6 +5319,17 @@
 			(justify right bottom)
 		)
 		(uuid "ce41f251-01a9-46da-ba18-c892cbb9f093")
+	)
+	(label "DUT_GPIO1"
+		(at 160.02 118.11 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ce71bd1f-ba22-49c6-8588-e69ffd2c31e1")
 	)
 	(label "CTRL_QSPI_SCK"
 		(at 57.15 30.48 180)
@@ -5167,7 +5387,7 @@
 		(uuid "d73d34f3-40a1-4c1c-9431-c0ab9e6b903c")
 	)
 	(label "DUT_RST_N"
-		(at 106.68 256.54 180)
+		(at 106.68 259.08 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5288,7 +5508,7 @@
 		(uuid "e99a5778-d159-4012-9a39-5ba779aba48c")
 	)
 	(label "CTRL_QSPI_DQ3"
-		(at 257.81 55.88 180)
+		(at 257.81 60.96 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5409,6 +5629,73 @@
 		(uuid "fabbbcc0-b632-4dab-9bf3-0a156f275070")
 	)
 	(symbol
+		(lib_id "conn:CONN_01X01")
+		(at 265.43 222.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0009c541-6ece-47f2-ab81-8c486472b650")
+		(property "Reference" "M3"
+			(at 267.335 221.0378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SCREWHOLE"
+			(at 267.335 223.4621 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "azonenberg_pcb:MECHANICAL_CLEARANCEHOLE_4_40"
+			(at 265.43 222.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 222.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Connector, single row, 01x01, pin header"
+			(at 265.43 222.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9500c50-48f3-4901-8c03-a1d3b8fdd2af")
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "st-azonenberg:STM32L431-QFN32")
 		(at 207.01 121.92 0)
 		(unit 4)
@@ -5435,7 +5722,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 207.01 121.92 0)
 			(effects
 				(font
@@ -5613,7 +5900,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 313.69 41.91 0)
 			(effects
 				(font
@@ -5724,6 +6011,73 @@
 		)
 	)
 	(symbol
+		(lib_id "conn:CONN_01X01")
+		(at 265.43 228.6 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0bdc6cfe-a940-44e4-8671-4fed418a1d08")
+		(property "Reference" "M4"
+			(at 267.335 227.3878 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SCREWHOLE"
+			(at 267.335 229.8121 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "azonenberg_pcb:MECHANICAL_CLEARANCEHOLE_4_40"
+			(at 265.43 228.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 228.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Connector, single row, 01x01, pin header"
+			(at 265.43 228.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bc3d2036-9254-4d44-9b72-a29300ef6b1c")
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "st-azonenberg:STM32L431-QFN32")
 		(at 163.83 62.23 0)
 		(unit 3)
@@ -5750,7 +6104,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 163.83 62.23 0)
 			(effects
 				(font
@@ -5929,12 +6283,13 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:XILINX_JTAG_PTH_MOLEX_0878311420"
 			(at 66.04 173.99 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
+				(hide yes)
 			)
 		)
 		(property "Datasheet" ""
@@ -6030,7 +6385,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 42.418 90)
 			(effects
 				(font
@@ -6073,6 +6428,70 @@
 		)
 	)
 	(symbol
+		(lib_id "special-azonenberg:MECHANICAL")
+		(at 264.16 241.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "155c5085-d289-47d5-9a2f-f8286ea4f7d8")
+		(property "Reference" "M6"
+			(at 267.335 240.0878 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LONGTHING"
+			(at 267.335 242.5121 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "azonenberg_pcb:LONGTHING-1200DPI"
+			(at 264.16 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 241.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "memory-azonenberg:W25Q80BV")
 		(at 134.62 215.9 0)
 		(unit 1)
@@ -6098,12 +6517,13 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:DFN_8_1.27MM_6x5MM"
 			(at 134.62 215.9 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
+				(hide yes)
 			)
 		)
 		(property "Datasheet" ""
@@ -6252,7 +6672,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 207.9752 33.02 0)
 			(effects
 				(font
@@ -6319,7 +6739,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 302.26 43.688 90)
 			(effects
 				(font
@@ -6387,7 +6807,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:DFN_8_0.5MM_2x2MM"
 			(at 312.42 116.84 0)
 			(effects
 				(font
@@ -6543,7 +6963,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 115.57 47.498 90)
 			(effects
 				(font
@@ -6613,7 +7033,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 223.2152 33.02 0)
 			(effects
 				(font
@@ -6681,7 +7101,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 326.39 140.97 0)
 			(effects
 				(font
@@ -6748,7 +7168,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 302.26 33.528 90)
 			(effects
 				(font
@@ -6815,7 +7235,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 115.57 50.038 90)
 			(effects
 				(font
@@ -6858,6 +7278,73 @@
 		)
 	)
 	(symbol
+		(lib_id "conn:CONN_01X01")
+		(at 265.43 215.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4f26fc83-37ff-4c10-8049-47a7b2e0ecba")
+		(property "Reference" "M2"
+			(at 267.335 214.6878 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SCREWHOLE"
+			(at 267.335 217.1121 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "azonenberg_pcb:MECHANICAL_CLEARANCEHOLE_4_40"
+			(at 265.43 215.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 215.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Connector, single row, 01x01, pin header"
+			(at 265.43 215.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "54b9aa9e-e445-42ea-a242-03b4eab5eec6")
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "device:R")
 		(at 118.11 110.49 90)
 		(unit 1)
@@ -6882,7 +7369,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 118.11 112.268 90)
 			(effects
 				(font
@@ -6951,7 +7438,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 73.66 62.23 0)
 			(effects
 				(font
@@ -7130,12 +7617,13 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:XILINX_JTAG_PTH_MOLEX_0878311420"
 			(at 115.57 173.99 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
+				(hide yes)
 			)
 		)
 		(property "Datasheet" ""
@@ -7201,6 +7689,70 @@
 			(project "microkvs-stress-test"
 				(path "/19c96cab-7628-46dd-b073-114974f52a48"
 					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "special-azonenberg:MECHANICAL")
+		(at 264.16 234.95 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5c3b3dc5-4d90-435a-af3d-967e48dacf43")
+		(property "Reference" "M5"
+			(at 267.335 233.7378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LOGO_OSHW"
+			(at 267.335 236.1621 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "w_logo:Logo_silk_OSHW_6x6mm"
+			(at 264.16 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M5")
 					(unit 1)
 				)
 			)
@@ -7305,7 +7857,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 120.65 82.042 90)
 			(effects
 				(font
@@ -7373,7 +7925,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 313.69 31.75 0)
 			(effects
 				(font
@@ -7440,7 +7992,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 32.258 90)
 			(effects
 				(font
@@ -7575,7 +8127,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 111.76 210.058 90)
 			(effects
 				(font
@@ -7642,7 +8194,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 255.27 121.158 90)
 			(effects
 				(font
@@ -7780,7 +8332,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_CAP_NOSILK"
 			(at 178.7652 92.71 0)
 			(effects
 				(font
@@ -7850,7 +8402,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 192.7352 33.02 0)
 			(effects
 				(font
@@ -7920,7 +8472,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 223.2152 92.71 0)
 			(effects
 				(font
@@ -7988,7 +8540,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:CONN_CUI_PJ-058BH_HIPWR_BARREL_NOSLOT"
 			(at 29.21 29.21 0)
 			(effects
 				(font
@@ -8034,6 +8586,70 @@
 		)
 	)
 	(symbol
+		(lib_id "special-azonenberg:MECHANICAL")
+		(at 264.16 247.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "963b360f-b0b3-49ae-8bbb-f781eb76cd06")
+		(property "Reference" "M7"
+			(at 267.335 246.4378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LOGO_WEEE"
+			(at 267.335 248.8621 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "w_logo:Logo_silk_WEEE_3.4x5mm"
+			(at 264.16 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 264.16 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 264.16 247.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "st-azonenberg:STM32L431-QFN32")
 		(at 125.73 121.92 0)
 		(unit 2)
@@ -8060,7 +8676,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 125.73 121.92 0)
 			(effects
 				(font
@@ -8237,7 +8853,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 111.76 212.598 90)
 			(effects
 				(font
@@ -8304,7 +8920,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 91.948 90)
 			(effects
 				(font
@@ -8371,7 +8987,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 157.48 210.058 90)
 			(effects
 				(font
@@ -8438,7 +9054,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 255.27 110.998 90)
 			(effects
 				(font
@@ -8508,7 +9124,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_CAP_NOSILK"
 			(at 178.7652 33.02 0)
 			(effects
 				(font
@@ -8575,7 +9191,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 118.11 107.188 90)
 			(effects
 				(font
@@ -8711,7 +9327,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 266.7 119.38 0)
 			(effects
 				(font
@@ -8779,7 +9395,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 266.7 99.06 0)
 			(effects
 				(font
@@ -8848,7 +9464,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 163.83 121.92 0)
 			(effects
 				(font
@@ -9025,7 +9641,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 255.27 131.318 90)
 			(effects
 				(font
@@ -9093,7 +9709,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 266.7 129.54 0)
 			(effects
 				(font
@@ -9163,7 +9779,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 138.1252 227.33 0)
 			(effects
 				(font
@@ -9230,7 +9846,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 255.27 100.838 90)
 			(effects
 				(font
@@ -9300,7 +9916,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 113.792 198.12 90)
 			(effects
 				(font
@@ -9369,7 +9985,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 125.73 62.23 0)
 			(effects
 				(font
@@ -9548,7 +10164,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:CONN_HEADER_2.54MM_2x6_RA_PMOD_HOST"
 			(at 262.89 62.23 0)
 			(effects
 				(font
@@ -9645,7 +10261,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 29.718 90)
 			(effects
 				(font
@@ -9715,7 +10331,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 207.9752 92.71 0)
 			(effects
 				(font
@@ -9856,7 +10472,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 118.11 19.812 90)
 			(effects
 				(font
@@ -9924,7 +10540,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 313.69 21.59 0)
 			(effects
 				(font
@@ -9992,7 +10608,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 266.7 109.22 0)
 			(effects
 				(font
@@ -10036,7 +10652,7 @@
 	)
 	(symbol
 		(lib_id "conn:CONN_01X08")
-		(at 111.76 262.89 0)
+		(at 111.76 265.43 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10045,7 +10661,7 @@
 		(fields_autoplaced yes)
 		(uuid "dc12cc32-f482-4c5d-bd4d-fc9c634b368e")
 		(property "Reference" "TP2"
-			(at 113.665 261.6778 0)
+			(at 113.665 264.2178 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10054,7 +10670,7 @@
 			)
 		)
 		(property "Value" "CONN_01X08"
-			(at 113.665 264.1021 0)
+			(at 113.665 266.6421 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10062,8 +10678,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 111.76 262.89 0)
+		(property "Footprint" "azonenberg_pcb:CONN_HEADER_2.54MM_1x8"
+			(at 111.76 265.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10072,7 +10688,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 111.76 262.89 0)
+			(at 111.76 265.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10081,7 +10697,7 @@
 			)
 		)
 		(property "Description" "Connector, single row, 01x08, pin header"
-			(at 111.76 262.89 0)
+			(at 111.76 265.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10147,7 +10763,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 118.11 109.728 90)
 			(effects
 				(font
@@ -10214,7 +10830,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 314.96 132.588 90)
 			(effects
 				(font
@@ -10284,7 +10900,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_CAP_NOSILK"
 			(at 124.1552 227.33 0)
 			(effects
 				(font
@@ -10352,7 +10968,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0603_LED"
 			(at 326.39 130.81 0)
 			(effects
 				(font
@@ -10419,7 +11035,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 99.568 90)
 			(effects
 				(font
@@ -10488,7 +11104,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 73.66 121.92 0)
 			(effects
 				(font
@@ -10665,7 +11281,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 115.57 52.578 90)
 			(effects
 				(font
@@ -10732,7 +11348,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 39.878 90)
 			(effects
 				(font
@@ -10799,7 +11415,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 314.96 142.748 90)
 			(effects
 				(font
@@ -10869,7 +11485,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_CAP_NOSILK"
 			(at 192.7352 92.71 0)
 			(effects
 				(font
@@ -10938,7 +11554,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:QFN_32_0.5MM_5x5MM"
 			(at 207.01 62.23 0)
 			(effects
 				(font
@@ -11115,7 +11731,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 157.48 215.138 90)
 			(effects
 				(font
@@ -11158,6 +11774,73 @@
 		)
 	)
 	(symbol
+		(lib_id "conn:CONN_01X01")
+		(at 265.43 209.55 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f947d19a-a446-4cab-ad1c-7dcdee89fb2b")
+		(property "Reference" "M1"
+			(at 267.335 208.3378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SCREWHOLE"
+			(at 267.335 210.7621 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "azonenberg_pcb:MECHANICAL_CLEARANCEHOLE_4_40"
+			(at 265.43 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 265.43 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Connector, single row, 01x01, pin header"
+			(at 265.43 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "639f3f7b-dd8a-4a8a-b184-dde3f9fe2bb3")
+		)
+		(instances
+			(project "microkvs-stress-test"
+				(path "/19c96cab-7628-46dd-b073-114974f52a48"
+					(reference "M1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "device:R")
 		(at 302.26 21.59 90)
 		(unit 1)
@@ -11182,7 +11865,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 302.26 23.368 90)
 			(effects
 				(font
@@ -11249,7 +11932,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 89.408 90)
 			(effects
 				(font
@@ -11316,7 +11999,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "azonenberg_pcb:EIA_0402_RES_NOSILK"
 			(at 60.96 102.108 90)
 			(effects
 				(font
