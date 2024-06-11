@@ -27,38 +27,21 @@
 *                                                                                                                      *
 ***********************************************************************************************************************/
 
-#include "stressctrl.h"
+#ifndef hwinit_h
+#define hwinit_h
 
-GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+#include <peripheral/Flash.h>
+#include <peripheral/GPIO.h>
+#include <peripheral/UART.h>
+#include <peripheral/SPI.h>
 
-GPIOPin g_dutPwr(&GPIOA, 0, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_dutRst(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+///@brief Initialize application-specific hardware stuff
+extern void App_Init();
 
-void App_Init()
-{
-	g_led0 = 1;
-	g_led1 = 1;
-	g_led2 = 1;
+//Global hardware config used by both app and bootloader
+extern UART<16, 256> g_uart;
 
-	g_dutPwr = 1;
-	g_dutRst =1;
-}
+//Common ISRs used by application and bootloader
+void USART2_Handler();
 
-void BSP_MainLoopIteration()
-{
-	const int logTimerMax = 60000;
-	static uint32_t next1HzTick = 0;
-
-	//Check for overflows on our log message timer
-	if(g_log.UpdateOffset(logTimerMax) && (next1HzTick >= logTimerMax) )
-		next1HzTick -= logTimerMax;
-
-	//1 Hz timer event
-	if(g_logTimer.GetCount() >= next1HzTick)
-	{
-		next1HzTick = g_logTimer.GetCount() + 10000;
-
-	}
-}
+#endif

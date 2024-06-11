@@ -27,38 +27,26 @@
 *                                                                                                                      *
 ***********************************************************************************************************************/
 
-#include "stressctrl.h"
+/**
+	@file
+	@author	Andrew D. Zonenberg
+	@brief	ISRs shared by bootloader and application
+ */
+#include <core/platform.h>
+#include "hwinit.h"
 
-GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ISRs
 
-GPIOPin g_dutPwr(&GPIOA, 0, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_dutRst(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-
-void App_Init()
+/**
+	@brief UART1 interrupt
+ */
+[[gnu::isr]]
+void USART1_Handler()
 {
-	g_led0 = 1;
-	g_led1 = 1;
-	g_led2 = 1;
+	if(USART1.ISR & USART_ISR_TXE)
+		g_uart.OnIRQTxEmpty();
 
-	g_dutPwr = 1;
-	g_dutRst =1;
-}
-
-void BSP_MainLoopIteration()
-{
-	const int logTimerMax = 60000;
-	static uint32_t next1HzTick = 0;
-
-	//Check for overflows on our log message timer
-	if(g_log.UpdateOffset(logTimerMax) && (next1HzTick >= logTimerMax) )
-		next1HzTick -= logTimerMax;
-
-	//1 Hz timer event
-	if(g_logTimer.GetCount() >= next1HzTick)
-	{
-		next1HzTick = g_logTimer.GetCount() + 10000;
-
-	}
+	if(USART1.ISR & USART_ISR_RXNE)
+		g_uart.OnIRQRxData();
 }

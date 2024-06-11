@@ -27,23 +27,19 @@
 *                                                                                                                      *
 ***********************************************************************************************************************/
 
-#include "stressctrl.h"
+#include "stressdut.h"
 
 GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-
-GPIOPin g_dutPwr(&GPIOA, 0, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_dutRst(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+GPIOPin g_led3(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 
 void App_Init()
 {
 	g_led0 = 1;
 	g_led1 = 1;
 	g_led2 = 1;
-
-	g_dutPwr = 1;
-	g_dutRst =1;
+	g_led3 = 1;
 }
 
 void BSP_MainLoopIteration()

@@ -27,38 +27,83 @@
 *                                                                                                                      *
 ***********************************************************************************************************************/
 
-#include "stressctrl.h"
+/**
+	@file
+	@author	Andrew D. Zonenberg
+	@brief	Boot-time hardware initialization
+ */
+#include <core/platform.h>
+#include "hwinit.h"
+#include <peripheral/Power.h>
 
-GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+void InitFPGASPI();
 
-GPIOPin g_dutPwr(&GPIOA, 0, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_dutRst(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common global hardware config used by both bootloader and application
 
-void App_Init()
+//UART console
+//USART1 is on APB1 (40 MHz), so we need a divisor of 347.22, round to 347
+UART<16, 256> g_uart(&USART1, 347);
+
+//APB1 is 40 MHz
+//Divide down to get 10 kHz ticks (note TIM2 is double rate)
+Timer g_logTimer(&TIM2, Timer::FEATURE_ADVANCED, 8000);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Low level init
+
+void BSP_InitPower()
 {
-	g_led0 = 1;
-	g_led1 = 1;
-	g_led2 = 1;
-
-	g_dutPwr = 1;
-	g_dutRst =1;
+	Power::ConfigureLDO(RANGE_VOS1);
 }
 
-void BSP_MainLoopIteration()
+void BSP_InitClocks()
 {
-	const int logTimerMax = 60000;
-	static uint32_t next1HzTick = 0;
+	//Configure the flash with wait states and prefetching before making any changes to the clock setup.
+	//A bit of extra latency is fine, the CPU being faster than flash is not.
+	Flash::SetConfiguration(80, RANGE_VOS1);
 
-	//Check for overflows on our log message timer
-	if(g_log.UpdateOffset(logTimerMax) && (next1HzTick >= logTimerMax) )
-		next1HzTick -= logTimerMax;
+	RCCHelper::InitializePLLFromHSI16(
+		2,	//Pre-divide by 2 (PFD frequency 8 MHz)
+		20,	//VCO at 8*20 = 160 MHz
+		4,	//Q divider is 40 MHz (nominal 48 but we're not using USB so this is fine)
+		2,	//R divider is 80 MHz (fmax for CPU)
+		1,	//no further division from SYSCLK to AHB (80 MHz)
+		2,	//APB1 at 40 MHz
+		2);	//APB2 at 40 MHz
+}
 
-	//1 Hz timer event
-	if(g_logTimer.GetCount() >= next1HzTick)
-	{
-		next1HzTick = g_logTimer.GetCount() + 10000;
+void BSP_InitUART()
+{
+	//Initialize the UART for local console: 115.2 Kbps using PA9 for USART1 transmit and PA10 for USART2 receive
+	//TODO: nice interface for enabling UART interrupts
+	GPIOPin uart_tx(&GPIOA, 9, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_SLOW, 7);
+	GPIOPin uart_rx(&GPIOA, 10, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_SLOW, 7);
 
-	}
+	g_logTimer.Sleep(10);	//wait for UART pins to be high long enough to remove any glitches during powerup
+
+	//Enable the UART interrupt
+	NVIC_EnableIRQ(37);
+}
+
+void BSP_InitLog()
+{
+	//Wait 10ms to avoid resets during shutdown from destroying diagnostic output
+	g_logTimer.Sleep(100);
+
+	//Clear screen and move cursor to X0Y0 (but only in bootloader)
+	#ifndef NO_CLEAR_SCREEN
+	g_uart.Printf("\x1b[2J\x1b[0;0H");
+	#endif
+
+	//Start the logger
+	g_log.Initialize(&g_uart, &g_logTimer);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Common features shared by both application and bootloader
+
+void BSP_Init()
+{
+	App_Init();
 }

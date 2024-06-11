@@ -27,38 +27,16 @@
 *                                                                                                                      *
 ***********************************************************************************************************************/
 
-#include "stressctrl.h"
+#ifndef stressctl_h
+#define stressctl_h
 
-GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+#include <core/platform.h>
 
-GPIOPin g_dutPwr(&GPIOA, 0, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
-GPIOPin g_dutRst(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+#include <util/FIFO.h>
+#include <util/StringBuffer.h>
 
-void App_Init()
-{
-	g_led0 = 1;
-	g_led1 = 1;
-	g_led2 = 1;
+#include "../bsp-ctrl/hwinit.h"
 
-	g_dutPwr = 1;
-	g_dutRst =1;
-}
+extern UART<16, 256> g_uart;
 
-void BSP_MainLoopIteration()
-{
-	const int logTimerMax = 60000;
-	static uint32_t next1HzTick = 0;
-
-	//Check for overflows on our log message timer
-	if(g_log.UpdateOffset(logTimerMax) && (next1HzTick >= logTimerMax) )
-		next1HzTick -= logTimerMax;
-
-	//1 Hz timer event
-	if(g_logTimer.GetCount() >= next1HzTick)
-	{
-		next1HzTick = g_logTimer.GetCount() + 10000;
-
-	}
-}
+#endif
