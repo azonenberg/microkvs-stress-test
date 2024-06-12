@@ -76,7 +76,6 @@ void BSP_InitClocks()
 void BSP_InitUART()
 {
 	//Initialize the UART for local console: 115.2 Kbps using PA9 for USART1 transmit and PA10 for USART2 receive
-	//TODO: nice interface for enabling UART interrupts
 	GPIOPin uart_tx(&GPIOA, 9, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_SLOW, 7);
 	GPIOPin uart_rx(&GPIOA, 10, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_SLOW, 7);
 

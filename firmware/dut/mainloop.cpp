@@ -29,10 +29,19 @@
 
 #include "stressdut.h"
 
+#include <peripheral/QuadSPI.h>
+
+#include <microkvs/driver/STM32StorageBank.h>
+
 GPIOPin g_led0(&GPIOB, 5, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led3(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
+
+void InitQuadSPI();
+
+bool KVSTestIteration(KVS* kvs);
+void DumpKVS(KVS* kvs);
 
 void App_Init()
 {
@@ -40,7 +49,214 @@ void App_Init()
 	g_led1 = 1;
 	g_led2 = 1;
 	g_led3 = 1;
+
+	//Use sectors 126 and 127 of flash for a for a 2 kB microkvs
+	g_log("Initializing KVS..\n");
+	static STM32StorageBank left(reinterpret_cast<uint8_t*>(0x0803f000), 0x800);
+	static STM32StorageBank right(reinterpret_cast<uint8_t*>(0x0803f800), 0x800);
+	InitKVS(&left, &right, 32);
+
+	//Set up external flash quad SPI interface
+	InitQuadSPI();
 }
+
+void InitQuadSPI()
+{
+	g_log("Initializing quad SPI...\n");
+	LogIndenter li(g_log);
+
+	//Configure the I/O pins
+	static GPIOPin qspi_cs_n(&GPIOA, 2, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+	static GPIOPin qspi_sck(&GPIOA, 3, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+	static GPIOPin qspi_dq0(&GPIOB, 1, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+	static GPIOPin qspi_dq1(&GPIOB, 0, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+	static GPIOPin qspi_dq2(&GPIOA, 7, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+	static GPIOPin qspi_dq3(&GPIOA, 6, GPIOPin::MODE_PERIPHERAL, GPIOPin::SLEW_VERYFAST, 10);
+
+	//128 MB flash running at 10 MHz (AHB/8)
+	static QuadSPI qspi(&QUADSPI, 128 * 1024 * 1024, 80);
+	qspi.SetInstructionMode(QuadSPI::MODE_SINGLE);
+	qspi.SetDoubleRateMode(false);
+	//qspi.SetAddressMode(QuadSPI::MODE_QUAD, 3);
+	qspi.SetAltBytesMode(QuadSPI::MODE_NONE);
+	//qspi.SetDataMode(QuadSPI::MODE_QUAD);
+	qspi.SetDummyCycleCount(0);
+	qspi.SetDeselectTime(1);
+	//qspi.SetMemoryMapMode(APBFPGAInterface::OP_APB_READ, APBFPGAInterface::OP_APB_WRITE);
+
+	//Read the ID code
+	qspi.SetAddressMode(QuadSPI::MODE_SINGLE, 0);
+	qspi.SetDataMode(QuadSPI::MODE_SINGLE);
+	uint8_t rdbuf[16];
+	qspi.BlockingRead(0x9f, 0, rdbuf, 3);
+	g_log("IDCODE = %02x %02x %02x\n",
+		rdbuf[0], rdbuf[1], rdbuf[2]);
+
+	//Try reading some data
+	qspi.BlockingRead(0x03, 0, rdbuf, 16);
+	g_log("Data = %02x %02x %02x %02x %02x %02x %02x %02x\n",
+		rdbuf[0], rdbuf[1], rdbuf[2], rdbuf[3], rdbuf[4], rdbuf[5], rdbuf[6], rdbuf[7]);
+}
+
+bool KVSTestIteration(KVS* kvs)
+{
+	g_log("Test iteration\n");
+	LogIndenter li(g_log);
+
+	const uint32_t magicA = 0xdeadf00d;
+	const uint32_t magicB = 0xbaadc0de;
+
+	//Verify we have exactly two objects
+	KVSListEntry list[4];
+	auto nfound = kvs->EnumObjects(list, 4);
+	if(nfound == 0)
+	{
+		g_log(Logger::WARNING, "No objects found, writing initial test state\n");
+
+		static const uint32_t initA[5] = { 1, 1, 1, 1, magicA };
+		static const uint32_t initB[5] = { 2, 2, 2, 2, magicB };
+
+		if(!kvs->StoreObject("A", (const uint8_t*)initA, sizeof(initA)))
+		{
+			g_log(Logger::ERROR, "Initial write of A failed\n");
+			return false;
+		}
+		if(!kvs->StoreObject("B", (const uint8_t*)initB, sizeof(initB)))
+		{
+			g_log(Logger::ERROR, "Initial write of B failed\n");
+			return false;
+		}
+		return true;
+	}
+	else if(nfound != 2)
+	{
+		g_log(Logger::ERROR, "Found wrong number of objects in KVS\n");
+		return false;
+	}
+
+	//If we get here, we have two objects (expecting A and B)
+	//Read them both
+	auto ha = kvs->FindObject("A");
+	auto hb = kvs->FindObject("B");
+	if(!ha)
+	{
+		g_log(Logger::ERROR, "A not found\n");
+		return false;
+	}
+	if(!hb)
+	{
+		g_log(Logger::ERROR, "B not found\n");
+		return false;
+	}
+
+	//Both should be 20 bytes in length
+	if(ha->m_len != 20)
+	{
+		g_log(Logger::ERROR, "A has bad length %d (expected 16)\n", ha->m_len);
+		return false;
+	}
+	if(hb->m_len != 20)
+	{
+		g_log(Logger::ERROR, "B has bad length %d (expected 16)\n", hb->m_len);
+		return false;
+	}
+
+	//Each object should consist of four copies of the same 32-bit value, then the magic number
+	auto pa = (uint32_t*)kvs->MapObject(ha);
+	auto pb = (uint32_t*)kvs->MapObject(hb);
+	if( (pa[0] != pa[1]) || (pa[0] != pa[2]) || (pa[0] != pa[3]) )
+	{
+		g_log(Logger::ERROR, "A has bad content %08x %08x %08x %08x %08x\n", pa[0], pa[1], pa[2], pa[3], pa[4]);
+		return false;
+	}
+	if( (pb[0] != pb[1]) || (pb[0] != pb[2]) || (pb[0] != pb[3]) )
+	{
+		g_log(Logger::ERROR, "B has bad content %08x %08x %08x %08x %08x\n", pb[0], pb[1], pb[2], pb[3], pb[4]);
+		return false;
+	}
+	if(pa[4] != magicA)
+	{
+		g_log(Logger::ERROR, "A has bad magic %08x %08x %08x %08x %08x\n", pa[0], pa[1], pa[2], pa[3], pa[4]);
+		return false;
+	}
+	if(pb[4] != magicB)
+	{
+		g_log(Logger::ERROR, "B has bad magic %08x %08x %08x %08x %08x\n", pb[0], pb[1], pb[2], pb[3], pb[4]);
+		return false;
+	}
+
+	//A and B should differ by exactly one
+	if( (pa[0] != (pb[0] + 1)) && (pa[0] != (pb[0] - 1)) )
+	{
+		g_log(Logger::ERROR, "A and B inconsistent (%08x %08x)\n", pa[0], pb[0]);
+		return false;
+	}
+
+	//Write new version of one object
+	if(pa < pb)
+	{
+		uint32_t nval = pb[0] + 1;
+		uint32_t nextA[5] = { nval, nval, nval, nval, magicA };
+		if(!kvs->StoreObject("A", (const uint8_t*)nextA, sizeof(nextA)))
+		{
+			g_log(Logger::ERROR, "Write of A failed\n");
+			return false;
+		}
+	}
+	else
+	{
+		uint32_t nval = pa[0] + 1;
+		uint32_t nextB[5] = { nval, nval, nval, nval, magicB };
+		if(!kvs->StoreObject("B", (const uint8_t*)nextB, sizeof(nextB)))
+		{
+			g_log(Logger::ERROR, "Write of B failed\n");
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+	@brief Prints the contents of the KVS
+ */
+void DumpKVS(KVS* kvs)
+{
+	g_uart.Printf("Dumping KVS\n");
+
+	KVSListEntry list[4];
+	auto nfound = kvs->EnumObjects(list, 4);
+	for(size_t i=0; i<nfound; i++)
+	{
+		g_uart.Printf("    Object %s (%d bytes, %d revs): ",
+			list[i].key, list[i].size, list[i].revs);
+
+		auto ptr = kvs->MapObject(kvs->FindObject(list[i].key));
+		for(size_t j=0; j<list[i].size; j++)
+			g_uart.Printf("%02x ", ptr[j]);
+
+		g_uart.Printf("\n");
+	}
+}
+
+/**
+	@brief Set up the microkvs key-value store for persisting our configuration
+ */
+/*
+void InitExternalKVS(StorageBank* left, StorageBank* right, uint32_t logsize)
+{
+	g_log("Initializing microkvs key-value store\n");
+	static KVS kvs(left, right, logsize);
+	g_kvs = &kvs;
+
+	LogIndenter li(g_log);
+	g_log("Block size:  %d bytes\n", kvs.GetBlockSize());
+	g_log("Log:         %d / %d slots free\n", (int)kvs.GetFreeLogEntries(), (int)kvs.GetLogCapacity());
+	g_log("Data:        %d / %d bytes free\n", (int)kvs.GetFreeDataSpace(), (int)kvs.GetDataCapacity());
+	g_log("Active bank: %s (rev %zu)\n",
+		kvs.IsLeftBankActive() ? "left" : "right",
+		kvs.GetBankHeaderVersion() );
+}*/
 
 void BSP_MainLoopIteration()
 {
@@ -56,5 +272,12 @@ void BSP_MainLoopIteration()
 	{
 		next1HzTick = g_logTimer.GetCount() + 10000;
 
+		if(!KVSTestIteration(g_kvs))
+		{
+			while(1)
+			{}
+		}
+
+		DumpKVS(g_kvs);
 	}
 }
