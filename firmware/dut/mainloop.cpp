@@ -38,6 +38,9 @@ GPIOPin g_led1(&GPIOB, 6, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led2(&GPIOB, 7, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 GPIOPin g_led3(&GPIOA, 1, GPIOPin::MODE_OUTPUT, GPIOPin::SLEW_SLOW, 0);
 
+//fail is an open drain output, will be pulled low on the controller side
+GPIOPin g_fail(&GPIOA, 0, GPIOPin::MODE_INPUT, GPIOPin::SLEW_SLOW, 0);
+
 void InitQuadSPI();
 
 bool KVSTestIteration(KVS* kvs);
@@ -100,9 +103,6 @@ void InitQuadSPI()
 
 bool KVSTestIteration(KVS* kvs)
 {
-	g_log("Test iteration\n");
-	LogIndenter li(g_log);
-
 	const uint32_t magicA = 0xdeadf00d;
 	const uint32_t magicB = 0xbaadc0de;
 
@@ -222,13 +222,11 @@ bool KVSTestIteration(KVS* kvs)
  */
 void DumpKVS(KVS* kvs)
 {
-	g_uart.Printf("Dumping KVS\n");
-
 	KVSListEntry list[4];
 	auto nfound = kvs->EnumObjects(list, 4);
 	for(size_t i=0; i<nfound; i++)
 	{
-		g_uart.Printf("    Object %s (%d bytes, %d revs): ",
+		g_uart.Printf("    %s (%d bytes, %02d revs): ",
 			list[i].key, list[i].size, list[i].revs);
 
 		auto ptr = kvs->MapObject(kvs->FindObject(list[i].key));
@@ -260,24 +258,24 @@ void InitExternalKVS(StorageBank* left, StorageBank* right, uint32_t logsize)
 
 void BSP_MainLoopIteration()
 {
-	const int logTimerMax = 60000;
-	static uint32_t next1HzTick = 0;
+	static unsigned int i=0;
 
-	//Check for overflows on our log message timer
-	if(g_log.UpdateOffset(logTimerMax) && (next1HzTick >= logTimerMax) )
-		next1HzTick -= logTimerMax;
+	bool ok = KVSTestIteration(g_kvs);
 
-	//1 Hz timer event
-	if(g_logTimer.GetCount() >= next1HzTick)
+	i++;
+	if( ((i % 50) == 0) || !ok)
 	{
-		next1HzTick = g_logTimer.GetCount() + 10000;
-
-		if(!KVSTestIteration(g_kvs))
-		{
-			while(1)
-			{}
-		}
-
+		g_uart.Printf("%u\n", i);
 		DumpKVS(g_kvs);
+	}
+
+	if(!ok)
+	{
+		//assert fail signal
+		g_fail.SetMode(GPIOPin::MODE_OUTPUT, 0, false);
+		g_fail = 1;
+
+		while(1)
+		{}
 	}
 }
