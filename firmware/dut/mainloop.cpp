@@ -53,10 +53,11 @@ void App_Init()
 	g_led2 = 1;
 	g_led3 = 1;
 
-	//Use sectors 126 and 127 of flash for a for a 2 kB microkvs
+	//Sectors 126 and 127 are pretty beat up on our test board, back up a bit
+	//Use sectors 124 and 125 of flash for a for a 2 kB microkvs
 	g_log("Initializing KVS..\n");
-	static STM32StorageBank left(reinterpret_cast<uint8_t*>(0x0803f000), 0x800);
-	static STM32StorageBank right(reinterpret_cast<uint8_t*>(0x0803f800), 0x800);
+	static STM32StorageBank left(reinterpret_cast<uint8_t*>(0x0803e000), 0x800);
+	static STM32StorageBank right(reinterpret_cast<uint8_t*>(0x0803e800), 0x800);
 	InitKVS(&left, &right, 32);
 
 	//Set up external flash quad SPI interface
@@ -229,7 +230,18 @@ void DumpKVS(KVS* kvs)
 		g_uart.Printf("    %s (%d bytes, %02d revs): ",
 			list[i].key, list[i].size, list[i].revs);
 
-		auto ptr = kvs->MapObject(kvs->FindObject(list[i].key));
+		auto hobject = kvs->FindObject(list[i].key);
+		if(!hobject)
+		{
+			g_uart.Printf("[fail to find object]\n");
+			continue;
+		}
+		auto ptr = kvs->MapObject(hobject);
+		if(!ptr)
+		{
+			g_uart.Printf("[fail to map object]\n");
+			continue;
+		}
 		for(size_t j=0; j<list[i].size; j++)
 			g_uart.Printf("%02x ", ptr[j]);
 

@@ -46,6 +46,11 @@ void NMI_Handler();
 void defaultISR();
 void USART1_Handler();
 
+extern GPIOPin g_fail;
+
+extern "C" void NMI_handler_real(uint32_t* msp);
+void PrintFault(const char* type, uint32_t* msp);
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Interrupt vector table
 
@@ -173,27 +178,110 @@ void defaultISR()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Exception vectors
 
-void NMI_Handler()
+void PrintFault(const char* type, uint32_t* msp)
 {
-	Reset();
+	uint32_t r0 = msp[0];
+	uint32_t r1 = msp[1];
+	uint32_t r2 = msp[2];
+	uint32_t r3 = msp[3];
+	uint32_t r12 = msp[4];
+	uint32_t lr = msp[5];
+	uint32_t pc = msp[6];
+	uint32_t xpsr = msp[7];
+
+	g_fail = 1;
+	g_uart.BlockingFlush();
+
+	g_uart.Printf("%s\n", type);
+	g_uart.Printf("    HFSR  = %08x\n", *(volatile uint32_t*)(0xe000ed2C));
+	g_uart.Printf("    MMFAR = %08x\n", *(volatile uint32_t*)(0xe000ed34));
+	g_uart.Printf("    BFAR  = %08x\n", *(volatile uint32_t*)(0xe000ed38));
+	g_uart.Printf("    CFSR  = %08x\n", *(volatile uint32_t*)(0xe000ed28));
+	g_uart.Printf("    UFSR  = %08x\n", *(volatile uint16_t*)(0xe000ed2a));
+	g_uart.Printf("    DFSR  = %08x\n", *(volatile uint32_t*)(0xe000ed30));
+	g_uart.Printf("    MSP   = %08x\n", msp);
+	g_uart.BlockingFlush();
+	g_uart.Printf("    r0    = %08x\n", r0);
+	g_uart.Printf("    r1    = %08x\n", r1);
+	g_uart.Printf("    r2    = %08x\n", r2);
+	g_uart.Printf("    r3    = %08x\n", r3);
+	g_uart.Printf("    r12   = %08x\n", r12);
+	g_uart.Printf("    lr    = %08x\n", lr);
+	g_uart.Printf("    pc    = %08x\n", pc);
+	g_uart.Printf("    xpsr  = %08x\n", xpsr);
+
+	g_uart.Printf("    Stack:\n");
+	g_uart.BlockingFlush();
+	for(int i=0; i<16; i++)
+	{
+		g_uart.Printf("        %08x\n", msp[i]);
+		g_uart.BlockingFlush();
+	}
+
+	while(1)
+	{}
+}
+
+void __attribute__((naked)) NMI_Handler()
+{
+	//save old stack pointer
+	asm volatile("mrs r0, msp");
+
+	//jump to real NMI handler
+	asm volatile("ldr r1, =NMI_handler_real");
+	asm volatile("bx r1");
+}
+
+void NMI_handler_real(uint32_t* msp)
+{
+	//We triggered a NMI... Why?
+	if(Flash::CheckForECCFaults())
+	{
+		//Tell the KVS, then clear fault flag so we don't NMI immediately on return
+		g_kvs->OnUncorrectableECCFault(Flash::GetFaultAddress(), msp[6]);
+		Flash::ClearECCFaults();
+
+		//Return two bytes after the faulting instruction
+		//(we assume we are executing a load instruction and those are all two bytes in thumb)
+		msp[6] += 2;
+		return;
+	}
+
+	PrintFault("NMI", msp);
 }
 
 void HardFault_Handler()
 {
-	Reset();
+	uint32_t* msp;
+	asm volatile("mrs %[result], MSP" : [result]"=r"(msp));
+	msp += 7;	//locals/alignment
+
+	PrintFault("Hard fault", msp);
 }
 
 void BusFault_Handler()
 {
-	Reset();
+	uint32_t* msp;
+	asm volatile("mrs %[result], MSP" : [result]"=r"(msp));
+	msp += 7;	//locals/alignment
+
+	PrintFault("Bus fault", msp);
 }
 
 void UsageFault_Handler()
 {
-	Reset();
+	uint32_t* msp;
+	asm volatile("mrs %[result], MSP" : [result]"=r"(msp));
+	msp += 12;	//locals/alignment
+
+	PrintFault("Usage fault", msp);
 }
 
 void MMUFault_Handler()
 {
-	Reset();
+	uint32_t* msp;
+	asm volatile("mrs %[result], MSP" : [result]"=r"(msp));
+	msp += 12;	//locals/alignment
+
+	PrintFault("MMU fault", msp);
 }
