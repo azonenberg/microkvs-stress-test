@@ -104,6 +104,22 @@ void InitQuadSPI()
 
 bool KVSTestIteration(KVS* kvs)
 {
+	//Verify headers are sane
+	auto freelog = kvs->GetFreeLogEntries();
+	auto logcap = kvs->GetLogCapacity();
+	auto freedata = kvs->GetFreeDataSpace();
+	auto datacap = kvs->GetDataCapacity();
+	if( (freelog > logcap) || (logcap > 32) )
+	{
+		g_log(Logger::ERROR, "Invalid state (KVS reports %u of %u free log entries)\n", freelog, logcap);
+		return false;
+	}
+	if( (freedata > datacap) || (datacap > 2048) )
+	{
+		g_log(Logger::ERROR, "Invalid state (KVS reports %u of %u free data bytes)\n", freedata, datacap);
+		return false;
+	}
+
 	const uint32_t magicA = 0xdeadf00d;
 	const uint32_t magicB = 0xbaadc0de;
 
